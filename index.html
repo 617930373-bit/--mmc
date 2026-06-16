@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>成交客户列表 - 老客回访人工建单</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">CAR<span>tech</span><em>卡泰驰</em></div>
+        <button class="icon-btn" type="button" aria-label="收起菜单">☰</button>
+      </div>
+      <div class="user-area">
+        <button class="notice-btn" type="button" aria-label="消息通知">
+          ⌁
+          <span>12</span>
+        </button>
+        <div class="avatar">旭</div>
+        <span class="user-name">客服专员 郭旭</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <nav class="menu">
+          <a href="#">评估管理</a>
+          <a href="#">采购线索</a>
+          <a href="#">车辆管理</a>
+          <a href="#">销售</a>
+          <a href="#">提醒</a>
+          <a href="#">线索管理</a>
+          <a href="#">客户管理</a>
+          <a href="#" class="sub">客户列表</a>
+          <a href="#" class="sub active">成交客户列表</a>
+          <a href="#" class="sub">线索库</a>
+          <a href="#">营销管理</a>
+          <a href="#">资金管理</a>
+          <a href="#">保险业务</a>
+          <a href="#">系统设置</a>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <div class="page-head">
+          <div class="breadcrumb">客户管理 / 成交客户列表</div>
+        </div>
+
+        <section class="panel top-filter-panel">
+          <div class="top-row">
+            <div class="store-group">
+              <span class="top-label">买车成交客户列表</span>
+              <label class="inline-field">
+                <span>门店：</span>
+                <select id="storeSelect">
+                  <option value="卡泰驰（徐州）金欧店">卡泰驰（徐州）金欧店</option>
+                  <option value="美驰直营旗舰店">美驰直营旗舰店</option>
+                  <option value="卡泰驰（南京）雨花店">卡泰驰（南京）雨花店</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="top-actions">
+              <div class="search-box">
+                <input id="globalSearchInput" type="search" placeholder="请输入手机号/姓名/车架号/销售搜索" />
+              </div>
+              <button class="icon-search-btn" type="button" id="globalSearchBtn" aria-label="搜索">🔍</button>
+              <button class="btn btn-default" type="button" id="createVisitBtn">人工新建面访单</button>
+              <button class="btn btn-default" type="button" id="exportBtn">导出</button>
+            </div>
+          </div>
+
+          <div class="filter-grid compact">
+            <label class="field">
+              <span>销售类型</span>
+              <select id="saleTypeFilter">
+                <option value="all">选择1</option>
+                <option value="零售">零售</option>
+                <option value="批发">批发</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>最近一次回访类型</span>
+              <select id="visitTypeFilter">
+                <option value="all">选择1</option>
+                <option value="展厅面访">展厅面访</option>
+                <option value="交车面访">交车面访</option>
+                <option value="电话回访">电话回访</option>
+                <option value="保险提醒">保险提醒</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>成交时间</span>
+              <div class="range-field">
+                <input id="dealStart" type="text" placeholder="请选择日期" />
+                <input id="dealEnd" type="text" placeholder="请选择日期" />
+              </div>
+            </label>
+            <label class="field">
+              <span>用车人爱好</span>
+              <select id="hobbyFilter">
+                <option value="all">选择1</option>
+                <option value="露营">露营</option>
+                <option value="亲子出游">亲子出游</option>
+                <option value="瑜伽">瑜伽</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>车辆品牌</span>
+              <select id="brandFilter">
+                <option value="all">选择1</option>
+                <option value="宝马">宝马</option>
+                <option value="奔驰">奔驰</option>
+                <option value="理想">理想</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>交强险到期时间</span>
+              <div class="range-field">
+                <input id="trafficStart" type="text" placeholder="请选择日期" />
+                <input id="trafficEnd" type="text" placeholder="请选择日期" />
+              </div>
+            </label>
+            <label class="field">
+              <span>商业险到期时间</span>
+              <div class="range-field">
+                <input id="businessStart" type="text" placeholder="请选择日期" />
+                <input id="businessEnd" type="text" placeholder="请选择日期" />
+              </div>
+            </label>
+            <label class="field">
+              <span>用车地</span>
+              <select id="cityFilter">
+                <option value="all">选择1</option>
+                <option value="江苏省 徐州市">江苏省 徐州市</option>
+                <option value="江苏省 南京市">江苏省 南京市</option>
+                <option value="山东省 青岛市">山东省 青岛市</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>成交价格</span>
+              <div class="range-field">
+                <input id="priceMin" type="text" placeholder="" />
+                <input id="priceMax" type="text" placeholder="" />
+              </div>
+            </label>
+            <label class="field">
+              <span>车架号</span>
+              <input id="vinFilter" type="text" placeholder="请输入车架号" />
+            </label>
+
+            <label class="field">
+              <span>销售顾问</span>
+              <select id="salesFilter">
+                <option value="all">请选择销售</option>
+                <option value="郭旭">郭旭</option>
+                <option value="韩雪">韩雪</option>
+                <option value="李清">李清</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>单据来源</span>
+              <select id="sourceFilter">
+                <option value="all">全部</option>
+                <option value="system">系统生成</option>
+                <option value="manual">人工创建</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>关联状态</span>
+              <select id="statusFilter">
+                <option value="all">全部</option>
+                <option value="draft">草稿</option>
+                <option value="pending">待关联</option>
+                <option value="associated">已关联</option>
+                <option value="voided">已作废</option>
+              </select>
+            </label>
+
+            <div class="filter-actions align-right">
+              <button class="btn btn-default" type="button" id="resetBtn">重置</button>
+              <button class="btn btn-primary" type="button" id="queryBtn">查询</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel table-panel">
+          <div class="table-toolbar slim">
+            <div class="sort-group">
+              <button class="sort-btn active" type="button">成交时间 ↓</button>
+              <button class="sort-btn" type="button">最近回访时间</button>
+            </div>
+            <div class="table-note">保留现有成交客户列表布局，本期仅新增人工建单相关筛选与操作。</div>
+          </div>
+
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th class="checkbox-col"></th>
+                  <th>客户ID</th>
+                  <th>成交时间</th>
+                  <th>最近一次回访时间</th>
+                  <th>签约客户姓名</th>
+                  <th>签约客户性别</th>
+                  <th>签约手机号</th>
+                  <th>成交车辆</th>
+                  <th>成交价</th>
+                  <th>销售类型</th>
+                  <th>销售顾问</th>
+                  <th>车架号</th>
+                  <th>客户来源</th>
+                  <th>客户当前状态</th>
+                  <th>用车人姓名</th>
+                  <th>用车人生日</th>
+                  <th>用车人性别</th>
+                  <th>用车地</th>
+                  <th>交强险到期时间</th>
+                  <th>商业险到期时间</th>
+                  <th>用车人爱好</th>
+                  <th>单据来源</th>
+                  <th>关联状态</th>
+                  <th>最近一次回访人</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="visitTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="empty-state" id="emptyState">暂无符合条件的数据</div>
+
+          <div class="pagination">
+            <div class="pagination-left">
+              <button class="btn btn-default btn-mini" type="button">全选</button>
+              <button class="btn btn-default btn-mini" type="button" disabled>批量删除</button>
+            </div>
+            <div class="pagination-right">
+              <span id="resultCountTag">共 0 条</span>
+              <select aria-label="每页条数">
+                <option>10条/页</option>
+                <option>20条/页</option>
+                <option>50条/页</option>
+              </select>
+              <button class="page-btn active" type="button">1</button>
+              <button class="page-btn" type="button">2</button>
+              <button class="page-btn" type="button">3</button>
+              <span>...</span>
+              <button class="page-btn" type="button">55</button>
+              <span>前往</span>
+              <input class="page-input" type="text" />
+              <span>页</span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="drawer" id="visitDrawer" aria-hidden="true">
+    <div class="drawer-mask" data-close-drawer="true"></div>
+    <section class="drawer-panel">
+      <header class="drawer-head">
+        <div>
+          <div class="drawer-kicker" id="drawerKicker">人工创建单</div>
+          <h2 id="drawerTitle">新建面访单</h2>
+        </div>
+        <button class="icon-btn close-btn" type="button" data-close-drawer="true" aria-label="关闭">×</button>
+      </header>
+
+      <div class="drawer-body">
+        <section class="drawer-block">
+          <div class="block-head">
+            <h3>单据信息</h3>
+          </div>
+          <div class="form-grid">
+            <label class="field">
+              <span>单据来源</span>
+              <input id="formSource" type="text" value="人工创建" disabled />
+            </label>
+            <label class="field">
+              <span>当前状态</span>
+              <input id="formStatusText" type="text" value="草稿" disabled />
+            </label>
+            <label class="field">
+              <span>回访类型</span>
+              <select id="formVisitType">
+                <option value="展厅面访">展厅面访</option>
+                <option value="交车面访">交车面访</option>
+                <option value="电话回访">电话回访</option>
+                <option value="保险提醒">保险提醒</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>创建门店</span>
+              <select id="formStore">
+                <option value="卡泰驰（徐州）金欧店">卡泰驰（徐州）金欧店</option>
+                <option value="美驰直营旗舰店">美驰直营旗舰店</option>
+                <option value="卡泰驰（南京）雨花店">卡泰驰（南京）雨花店</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>到店/回访时间</span>
+              <input id="formVisitAt" type="datetime-local" />
+            </label>
+            <label class="field">
+              <span>创建人</span>
+              <input id="formCreator" type="text" value="郭旭（23024898）" disabled />
+            </label>
+          </div>
+        </section>
+
+        <section class="drawer-block">
+          <div class="block-head">
+            <h3>面访/回访填写信息</h3>
+          </div>
+          <div class="form-grid">
+            <label class="field">
+              <span>实际用车人姓名</span>
+              <input id="formOwnerName" type="text" placeholder="请输入实际用车人姓名" />
+            </label>
+            <label class="field">
+              <span>用车人联系方式</span>
+              <input id="formOwnerPhone" type="text" placeholder="请输入手机号" />
+            </label>
+            <label class="field">
+              <span>用车人性别</span>
+              <select id="formGender">
+                <option value="">请选择</option>
+                <option value="男">男</option>
+                <option value="女">女</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>用车人生日</span>
+              <input id="formBirthday" type="date" />
+            </label>
+            <label class="field">
+              <span>用车地</span>
+              <input id="formCity" type="text" placeholder="例如：江苏省 徐州市" />
+            </label>
+            <label class="field">
+              <span>用车人爱好</span>
+              <input id="formHobby" type="text" placeholder="例如：露营" />
+            </label>
+            <label class="field">
+              <span>交强险到期时间</span>
+              <input id="formTrafficInsurance" type="date" />
+            </label>
+            <label class="field">
+              <span>商业险到期时间</span>
+              <input id="formBusinessInsurance" type="date" />
+            </label>
+            <label class="field full">
+              <span>回访内容</span>
+              <textarea id="formFeedback" rows="4" placeholder="请输入本次回访记录"></textarea>
+            </label>
+            <label class="field full">
+              <span>备注</span>
+              <textarea id="formRemark" rows="3" placeholder="请输入备注"></textarea>
+            </label>
+          </div>
+        </section>
+
+        <section class="drawer-block" id="associationBlock">
+          <div class="block-head">
+            <h3>关联销单信息</h3>
+          </div>
+          <div class="association-card" id="associationCard">
+            <div class="association-empty">当前单据暂未关联销单</div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="drawer-foot">
+        <button class="btn btn-default" type="button" data-close-drawer="true">取消</button>
+        <button class="btn btn-default" type="button" id="saveDraftBtn">保存草稿</button>
+        <button class="btn btn-primary" type="button" id="submitVisitBtn">保存并提交</button>
+      </footer>
+    </section>
+  </div>
+
+  <div class="modal" id="associateModal" aria-hidden="true">
+    <div class="modal-card modal-wide">
+      <header class="modal-head">
+        <div>
+          <h2>手工关联销单</h2>
+          <p>仅展示已满足尾款收齐且已生成成交客户数据的销单</p>
+        </div>
+        <button class="icon-btn close-btn" type="button" data-close-associate="true" aria-label="关闭">×</button>
+      </header>
+      <div class="modal-body">
+        <div class="associate-summary" id="associateSummary"></div>
+        <div class="associate-filter-bar">
+          <label class="field">
+            <span>车架号搜索</span>
+            <input id="candidateVinSearch" type="text" placeholder="支持后4位/后6位/全部车架号搜索" />
+          </label>
+          <label class="field">
+            <span>车辆名称</span>
+            <input id="candidateVehicleSearch" type="text" placeholder="请输入车辆名称模糊搜索" />
+          </label>
+          <div class="filter-actions">
+            <button class="btn btn-default" type="button" id="candidateResetBtn">重置</button>
+            <button class="btn btn-primary" type="button" id="candidateQueryBtn">查询</button>
+          </div>
+        </div>
+        <div class="candidate-table">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>销单号</th>
+                <th>签约客户</th>
+                <th>成交车辆</th>
+                <th>车架号</th>
+                <th>尾款收齐时间</th>
+                <th>成交客户数据</th>
+                <th>系统单情况</th>
+              </tr>
+            </thead>
+            <tbody id="candidateTableBody"></tbody>
+          </table>
+        </div>
+        <div class="merge-warning hidden" id="mergeWarning">
+          <div class="warning-tag">覆盖提醒</div>
+          <div id="mergeWarningText"></div>
+        </div>
+      </div>
+      <footer class="modal-foot">
+        <button class="btn btn-default" type="button" data-close-associate="true">取消</button>
+        <button class="btn btn-primary" type="button" id="confirmAssociateBtn">确认关联</button>
+      </footer>
+    </div>
+  </div>
+
+  <div class="modal" id="deleteModal" aria-hidden="true">
+    <div class="modal-card modal-narrow">
+      <header class="modal-head">
+        <div>
+          <h2>删除人工单</h2>
+          <p>系统生成单不可删除，仅人工单支持删除。</p>
+        </div>
+      </header>
+      <div class="modal-body">
+        <p id="deleteDesc">确认删除当前人工单吗？删除后不可恢复。</p>
+      </div>
+      <footer class="modal-foot">
+        <button class="btn btn-default" type="button" data-close-delete="true">取消</button>
+        <button class="btn btn-danger" type="button" id="confirmDeleteBtn">确认删除</button>
+      </footer>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
