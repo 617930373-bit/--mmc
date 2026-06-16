@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>成交客户列表 - 老客回访人工建单</title>
+  <title>AI外呼任务中心</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -16,446 +16,650 @@
       <div class="user-area">
         <button class="notice-btn" type="button" aria-label="消息通知">
           ⌁
-          <span>12</span>
+          <span>8</span>
         </button>
-        <div class="avatar">旭</div>
-        <span class="user-name">客服专员 郭旭</span>
+        <div class="avatar">郭</div>
+        <span class="user-name">销售运营 郭旭</span>
       </div>
     </header>
 
     <div class="layout">
       <aside class="sidebar">
         <nav class="menu">
-          <a href="#">评估管理</a>
-          <a href="#">采购线索</a>
-          <a href="#">车辆管理</a>
-          <a href="#">销售</a>
-          <a href="#">提醒</a>
+          <a href="#">客户列表</a>
+          <a href="#">线索履约</a>
+          <a href="#">门店客户配置</a>
           <a href="#">线索管理</a>
-          <a href="#">客户管理</a>
-          <a href="#" class="sub">客户列表</a>
-          <a href="#" class="sub active">成交客户列表</a>
-          <a href="#" class="sub">线索库</a>
+          <a href="#" class="active">AI外呼任务</a>
           <a href="#">营销管理</a>
           <a href="#">资金管理</a>
           <a href="#">保险业务</a>
+          <a href="#">金融管理</a>
+          <a href="#">结算管理</a>
+          <a href="#">数据看板</a>
+          <a href="#">云仓管理</a>
+          <a href="#">平台管理</a>
+          <a href="#">服务管理</a>
+          <a href="#">工单管理</a>
           <a href="#">系统设置</a>
         </nav>
       </aside>
 
-      <main class="content">
+      <main class="content call-page">
         <div class="page-head">
-          <div class="breadcrumb">客户管理 / 成交客户列表</div>
+          <div class="breadcrumb">客户管理 / AI外呼任务</div>
+          <div class="page-head-actions">
+            <button class="btn btn-default" type="button">规则模板管理</button>
+            <button class="btn btn-primary" type="button">新建任务</button>
+          </div>
         </div>
 
-        <section class="panel top-filter-panel">
-          <div class="top-row">
-            <div class="store-group">
-              <span class="top-label">买车成交客户列表</span>
-              <label class="inline-field">
-                <span>门店：</span>
-                <select id="storeSelect">
-                  <option value="卡泰驰（徐州）金欧店">卡泰驰（徐州）金欧店</option>
-                  <option value="美驰直营旗舰店">美驰直营旗舰店</option>
-                  <option value="卡泰驰（南京）雨花店">卡泰驰（南京）雨花店</option>
-                </select>
-              </label>
-            </div>
+        <section class="panel summary-strip">
+          <div class="summary-card">
+            <span class="summary-label">今日任务数</span>
+            <strong>12</strong>
+            <em>执行中 3 个</em>
+          </div>
+          <div class="summary-card">
+            <span class="summary-label">今日拨打客户</span>
+            <strong>3,482</strong>
+            <em>单任务上限 500</em>
+          </div>
+          <div class="summary-card">
+            <span class="summary-label">接听率</span>
+            <strong>29.6%</strong>
+            <em>较昨日 +4.2%</em>
+          </div>
+          <div class="summary-card">
+            <span class="summary-label">规则命中</span>
+            <strong>1,027</strong>
+            <em>自动流转 683 条</em>
+          </div>
+        </section>
 
-            <div class="top-actions">
-              <div class="search-box">
-                <input id="globalSearchInput" type="search" placeholder="请输入手机号/姓名/车架号/销售搜索" />
-              </div>
-              <button class="icon-search-btn" type="button" id="globalSearchBtn" aria-label="搜索">🔍</button>
-              <button class="btn btn-default" type="button" id="createVisitBtn">人工新建面访单</button>
-              <button class="btn btn-default" type="button" id="exportBtn">导出</button>
+        <section class="panel task-config-panel">
+          <div class="panel-head">
+            <div>
+              <h2>新建AI外呼任务</h2>
+              <p>任务创建、客户圈选和呼叫完成后的规则模板在同一页配置，后续可独立拆分。</p>
+            </div>
+            <div class="panel-head-tags">
+              <span class="tag tag-orange">单任务仅允许单一客户状态</span>
+              <span class="tag tag-blue">仅拨打主手机号</span>
             </div>
           </div>
 
-          <div class="filter-grid compact">
-            <label class="field">
-              <span>销售类型</span>
-              <select id="saleTypeFilter">
-                <option value="all">选择1</option>
-                <option value="零售">零售</option>
-                <option value="批发">批发</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>最近一次回访类型</span>
-              <select id="visitTypeFilter">
-                <option value="all">选择1</option>
-                <option value="展厅面访">展厅面访</option>
-                <option value="交车面访">交车面访</option>
-                <option value="电话回访">电话回访</option>
-                <option value="保险提醒">保险提醒</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>成交时间</span>
-              <div class="range-field">
-                <input id="dealStart" type="text" placeholder="请选择日期" />
-                <input id="dealEnd" type="text" placeholder="请选择日期" />
+          <div class="task-grid">
+            <section class="task-form-card">
+              <div class="section-title">
+                <h3>1. 任务基础配置</h3>
+                <span>参考现有AI外呼平台字段，做MMC内任务封装</span>
               </div>
-            </label>
-            <label class="field">
-              <span>用车人爱好</span>
-              <select id="hobbyFilter">
-                <option value="all">选择1</option>
-                <option value="露营">露营</option>
-                <option value="亲子出游">亲子出游</option>
-                <option value="瑜伽">瑜伽</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>车辆品牌</span>
-              <select id="brandFilter">
-                <option value="all">选择1</option>
-                <option value="宝马">宝马</option>
-                <option value="奔驰">奔驰</option>
-                <option value="理想">理想</option>
-              </select>
-            </label>
 
-            <label class="field">
-              <span>交强险到期时间</span>
-              <div class="range-field">
-                <input id="trafficStart" type="text" placeholder="请选择日期" />
-                <input id="trafficEnd" type="text" placeholder="请选择日期" />
+              <div class="form-grid">
+                <label class="field">
+                  <span><i>*</i> 任务名称</span>
+                  <input type="text" value="6月库存车跟进-A级客户外呼" />
+                </label>
+                <label class="field">
+                  <span><i>*</i> 拨打客户状态</span>
+                  <select id="statusSelect">
+                    <option selected>跟进中</option>
+                    <option>新客待维护</option>
+                    <option>待维护</option>
+                    <option>订单中</option>
+                    <option>成交</option>
+                    <option>待分配</option>
+                    <option>公海中</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span><i>*</i> 拨打时间</span>
+                  <div class="range-field">
+                    <input type="text" value="2026-06-16 18:00" />
+                    <input type="text" value="2026-06-16 21:00" />
+                  </div>
+                </label>
+                <label class="field">
+                  <span><i>*</i> AI话术</span>
+                  <select>
+                    <option selected>库存车意向唤醒话术V3</option>
+                    <option>到店邀约话术V2</option>
+                    <option>成交回访话术V1</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span><i>*</i> 外呼号码</span>
+                  <select>
+                    <option selected>华东线路-400-089-2211</option>
+                    <option>总部线路-010-8754-2218</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>AI坐席（日坐席上限）</span>
+                  <input type="text" value="40" />
+                </label>
               </div>
-            </label>
-            <label class="field">
-              <span>商业险到期时间</span>
-              <div class="range-field">
-                <input id="businessStart" type="text" placeholder="请选择日期" />
-                <input id="businessEnd" type="text" placeholder="请选择日期" />
-              </div>
-            </label>
-            <label class="field">
-              <span>用车地</span>
-              <select id="cityFilter">
-                <option value="all">选择1</option>
-                <option value="江苏省 徐州市">江苏省 徐州市</option>
-                <option value="江苏省 南京市">江苏省 南京市</option>
-                <option value="山东省 青岛市">山东省 青岛市</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>成交价格</span>
-              <div class="range-field">
-                <input id="priceMin" type="text" placeholder="" />
-                <input id="priceMax" type="text" placeholder="" />
-              </div>
-            </label>
-            <label class="field">
-              <span>车架号</span>
-              <input id="vinFilter" type="text" placeholder="请输入车架号" />
-            </label>
 
-            <label class="field">
-              <span>销售顾问</span>
-              <select id="salesFilter">
-                <option value="all">请选择销售</option>
-                <option value="郭旭">郭旭</option>
-                <option value="韩雪">韩雪</option>
-                <option value="李清">李清</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>单据来源</span>
-              <select id="sourceFilter">
-                <option value="all">全部</option>
-                <option value="system">系统生成</option>
-                <option value="manual">人工创建</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>关联状态</span>
-              <select id="statusFilter">
-                <option value="all">全部</option>
-                <option value="draft">草稿</option>
-                <option value="pending">待关联</option>
-                <option value="associated">已关联</option>
-                <option value="voided">已作废</option>
-              </select>
-            </label>
+              <div class="switch-block">
+                <div class="switch-row">
+                  <span class="switch-label">自动重拨</span>
+                  <div class="pill-switch active">
+                    <button class="active" type="button">开启</button>
+                    <button type="button">关闭</button>
+                  </div>
+                  <span class="helper-text">开启后，可提升接通率</span>
+                </div>
 
-            <div class="filter-actions align-right">
-              <button class="btn btn-default" type="button" id="resetBtn">重置</button>
-              <button class="btn btn-primary" type="button" id="queryBtn">查询</button>
+                <div class="retry-card">
+                  <div class="retry-head">
+                    <span>未拨号码优先呼叫</span>
+                    <label class="toggle">
+                      <input type="checkbox" checked />
+                      <span></span>
+                    </label>
+                  </div>
+
+                  <div class="retry-mode">
+                    <span>选择重试状态</span>
+                    <div class="mini-switch">
+                      <button class="active" type="button">简洁模式</button>
+                      <button type="button">高级模式</button>
+                    </div>
+                  </div>
+
+                  <div class="check-grid">
+                    <label><input type="checkbox" /> 关机</label>
+                    <label><input type="checkbox" /> 占线</label>
+                    <label><input type="checkbox" /> 停机</label>
+                    <label><input type="checkbox" /> 主叫欠费</label>
+                    <label><input type="checkbox" checked /> 呼损</label>
+                    <label><input type="checkbox" checked /> 外呼失败</label>
+                    <label><input type="checkbox" checked /> 无法接通</label>
+                    <label><input type="checkbox" /> 拒接</label>
+                    <label><input type="checkbox" /> 未接</label>
+                    <label><input type="checkbox" /> 空号</label>
+                  </div>
+
+                  <div class="retry-form">
+                    <label class="field mini">
+                      <span>重拨次数</span>
+                      <select>
+                        <option>1</option>
+                        <option selected>2</option>
+                        <option>3</option>
+                      </select>
+                    </label>
+                    <label class="field mini">
+                      <span>重拨间隔</span>
+                      <div class="inline-input">
+                        <input type="text" value="5" />
+                        <em>分钟</em>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="switch-row push-row">
+                  <label class="checkbox-text">
+                    <input type="checkbox" checked />
+                    <span>推送微信消息给分配到客户的成员</span>
+                  </label>
+                  <span class="helper-text">仅推送 A 级和 B 级意向客户；如规则转人工成功后则不再推送。</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="task-pick-card">
+              <div class="section-title">
+                <h3>2. 客户圈选</h3>
+                <span>不重复造选客页面，直接复用现有客户列表/待分配/公海池筛选与权限逻辑</span>
+              </div>
+
+              <div class="pick-info">
+                <div class="pick-status">
+                  <span class="pick-label">当前任务状态范围</span>
+                  <strong id="pickedStatusLabel">跟进中</strong>
+                  <em>该任务下不可混选其他状态客户</em>
+                </div>
+                <div class="pick-count-card">
+                  <span>已圈选客户</span>
+                  <strong>286 / 500</strong>
+                  <em>超出上限需拆分任务</em>
+                </div>
+              </div>
+
+              <div class="pick-route-grid">
+                <article class="route-card active">
+                  <div class="route-kicker">现有入口复用</div>
+                  <h4>客户列表</h4>
+                  <p>适用于新客待维护、待维护、跟进中、订单中、成交。可见范围完全跟当前角色走。</p>
+                  <ul>
+                    <li>销售顾问：仅我的客户</li>
+                    <li>销售经理：我的 / 部门 / 门店客户</li>
+                    <li>圈选后回流任务页，不改变原页面筛选逻辑</li>
+                  </ul>
+                  <button class="btn btn-primary" type="button">去客户列表圈选</button>
+                </article>
+
+                <article class="route-card">
+                  <div class="route-kicker">无归属客户池</div>
+                  <h4>待分配列表</h4>
+                  <p>适用于待分配客户。沿用现有待分配列表筛选项，只新增“加入外呼任务”圈选动作。</p>
+                  <button class="btn btn-default" type="button">去待分配列表圈选</button>
+                </article>
+
+                <article class="route-card">
+                  <div class="route-kicker">无归属客户池</div>
+                  <h4>公海池</h4>
+                  <p>适用于公海中客户。支持按当前角色可见范围与门店选择进行圈选。</p>
+                  <button class="btn btn-default" type="button">去公海池圈选</button>
+                </article>
+              </div>
+
+              <div class="pick-table-wrap">
+                <div class="sub-toolbar">
+                  <strong>本次任务已选客户预览</strong>
+                  <div class="sub-toolbar-actions">
+                    <button class="btn btn-default btn-mini" type="button">查看圈选条件</button>
+                    <button class="btn btn-default btn-mini" type="button">清空已选</button>
+                  </div>
+                </div>
+
+                <table class="compact-table">
+                  <thead>
+                    <tr>
+                      <th class="checkbox-col"><input type="checkbox" checked /></th>
+                      <th>MMC客户ID</th>
+                      <th>客户姓名</th>
+                      <th>主手机号</th>
+                      <th>客户状态</th>
+                      <th>意向等级</th>
+                      <th>归属人</th>
+                      <th>下次跟进时间</th>
+                      <th>最近线索流入时间</th>
+                      <th>来源页面</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="checkbox" checked /></td>
+                      <td><a href="#">MMC2064982212</a></td>
+                      <td>王嘉雯</td>
+                      <td>136****9808</td>
+                      <td>跟进中</td>
+                      <td>A</td>
+                      <td>郭旭</td>
+                      <td>2026-06-16 19:00</td>
+                      <td>2026-06-16 14:20</td>
+                      <td>我的客户</td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" checked /></td>
+                      <td><a href="#">MMC2064982247</a></td>
+                      <td>周雨桐</td>
+                      <td>138****2201</td>
+                      <td>跟进中</td>
+                      <td>B</td>
+                      <td>韩雪</td>
+                      <td>2026-06-16 18:30</td>
+                      <td>2026-06-16 15:12</td>
+                      <td>部门客户</td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" checked /></td>
+                      <td><a href="#">MMC2064967142</a></td>
+                      <td>陈一鸣</td>
+                      <td>139****5741</td>
+                      <td>跟进中</td>
+                      <td>N</td>
+                      <td>李清</td>
+                      <td>2026-06-16 20:00</td>
+                      <td>2026-06-16 13:58</td>
+                      <td>门店客户</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="panel rule-panel">
+          <div class="panel-head">
+            <div>
+              <h2>呼叫完成后规则配置</h2>
+              <p>任务页内直接绑定规则模板，但底层按独立规则模板设计。若未配置规则，仅记录清洗轨迹，不改归属、不改状态。</p>
+            </div>
+            <div class="panel-head-tags">
+              <span class="tag tag-green">重点字段：通话状态 / 意向标签</span>
+              <span class="tag tag-gray">底层可独立拆出规则中心</span>
+            </div>
+          </div>
+
+          <div class="rule-layout">
+            <div class="rule-template-card">
+              <div class="rule-template-head">
+                <strong>规则模板</strong>
+                <div class="template-actions">
+                  <button class="btn btn-default btn-mini" type="button">复制模板</button>
+                  <button class="btn btn-default btn-mini" type="button">新建空模板</button>
+                </div>
+              </div>
+
+              <div class="template-list">
+                <button class="template-item active" type="button">
+                  <strong>跟进中客户清洗模板</strong>
+                  <span>适用于跟进中 / 订单中 / 成交后的唤醒回访</span>
+                </button>
+                <button class="template-item" type="button">
+                  <strong>待维护客户优先分流模板</strong>
+                  <span>适用于新客待维护 / 待维护阶段</span>
+                </button>
+                <button class="template-item" type="button">
+                  <strong>待分配、公海线索清洗模板</strong>
+                  <span>适用于无归属客户池快速清洗</span>
+                </button>
+              </div>
+
+              <div class="default-fallback">
+                <strong>未配置命中规则时</strong>
+                <p>仅新增一条“AI外呼清洗轨迹”，存储通话状态、意向标签、录音、录音分析内容，不改客户状态、归属、下次跟进时间。</p>
+              </div>
+            </div>
+
+            <div class="rule-builder-card">
+              <div class="section-title">
+                <h3>规则表达方式</h3>
+                <span>用简单的“适用状态 + 通话状态 + 意向标签 -> 动作”覆盖主要客户流转场景</span>
+              </div>
+
+              <div class="logic-strip">
+                <div class="logic-step">
+                  <span>1</span>
+                  <strong>适用客户</strong>
+                  <em>单状态 / 指定意向</em>
+                </div>
+                <div class="logic-arrow">→</div>
+                <div class="logic-step">
+                  <span>2</span>
+                  <strong>触发条件</strong>
+                  <em>通话状态 + 意向标签</em>
+                </div>
+                <div class="logic-arrow">→</div>
+                <div class="logic-step">
+                  <span>3</span>
+                  <strong>执行动作</strong>
+                  <em>改意向 / 改跟进 / 记轨迹</em>
+                </div>
+              </div>
+
+              <div class="rule-table-wrap">
+                <table class="compact-table rule-table">
+                  <thead>
+                    <tr>
+                      <th>优先级</th>
+                      <th>适用客户状态</th>
+                      <th>当前意向等级</th>
+                      <th>通话状态</th>
+                      <th>AI意向标签</th>
+                      <th>执行动作</th>
+                      <th>是否自动执行</th>
+                      <th>说明</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>P1</td>
+                      <td>跟进中</td>
+                      <td>全部</td>
+                      <td>已接听</td>
+                      <td>A / B</td>
+                      <td>更新意向等级；下次跟进时间 = 当前时间 + 24h；推送微信</td>
+                      <td><span class="status-chip success">自动执行</span></td>
+                      <td>用于高意向客户快速进入销售跟进列表</td>
+                    </tr>
+                    <tr>
+                      <td>P2</td>
+                      <td>新客待维护 / 待维护</td>
+                      <td>全部</td>
+                      <td>已接听</td>
+                      <td>C / D</td>
+                      <td>更新意向等级；生成“继续维护”待办；下次跟进时间 = 当前时间 + 72h</td>
+                      <td><span class="status-chip success">自动执行</span></td>
+                      <td>不改客户状态，仍保持待维护体系</td>
+                    </tr>
+                    <tr>
+                      <td>P3</td>
+                      <td>待分配 / 公海中</td>
+                      <td>全部</td>
+                      <td>已接听</td>
+                      <td>A / B / C</td>
+                      <td>仅生成“建议分配/建议领取”提示；不自动改归属</td>
+                      <td><span class="status-chip warning">建议动作</span></td>
+                      <td>无归属客户避免系统强行指定销售</td>
+                    </tr>
+                    <tr>
+                      <td>P4</td>
+                      <td>跟进中 / 订单中 / 成交</td>
+                      <td>全部</td>
+                      <td>拒接 / 未接 / 占线 / 无法接通</td>
+                      <td>E / N</td>
+                      <td>仅记录清洗轨迹；下次跟进时间 = 当前时间 + 12h</td>
+                      <td><span class="status-chip neutral">自动执行</span></td>
+                      <td>延续现有“新线索流入后 +12h”思路，作为未完成沟通的补追机制</td>
+                    </tr>
+                    <tr>
+                      <td>P5</td>
+                      <td>全部</td>
+                      <td>全部</td>
+                      <td>空号</td>
+                      <td>N</td>
+                      <td>记录轨迹；标记号码异常；生成人工校验待办</td>
+                      <td><span class="status-chip warning">建议动作</span></td>
+                      <td>避免直接自动丢公海或改无效，降低误伤风险</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="rule-note-grid">
+                <article class="note-card">
+                  <strong>自动执行动作建议</strong>
+                  <p>优先支持低风险动作：更新意向等级、更新下次跟进时间、记录轨迹、推送微信、生成待办。</p>
+                </article>
+                <article class="note-card">
+                  <strong>建议动作建议</strong>
+                  <p>涉及改归属、改客户主状态、转待分配、丢公海等高风险流转，第一版建议仅提示，不自动落库。</p>
+                </article>
+                <article class="note-card">
+                  <strong>兼容未来扩展</strong>
+                  <p>后续若 AI 回传字段增加，可继续扩展触发条件，但任务页交互不需要重做。</p>
+                </article>
+              </div>
             </div>
           </div>
         </section>
 
-        <section class="panel table-panel">
-          <div class="table-toolbar slim">
-            <div class="sort-group">
-              <button class="sort-btn active" type="button">成交时间 ↓</button>
-              <button class="sort-btn" type="button">最近回访时间</button>
+        <section class="panel task-result-panel">
+          <div class="panel-head">
+            <div>
+              <h2>任务执行结果</h2>
+              <p>任务层看整体效果，明细层看单客户和单次呼叫结果；手机号脱敏展示，客户ID可直达客户详情。</p>
             </div>
-            <div class="table-note">保留现有成交客户列表布局，本期仅新增人工建单相关筛选与操作。</div>
+            <div class="panel-head-actions">
+              <button class="btn btn-default" type="button">导出明细</button>
+              <button class="btn btn-primary" type="button">暂停任务</button>
+            </div>
           </div>
 
-          <div class="table-scroll">
-            <table>
-              <thead>
-                <tr>
-                  <th class="checkbox-col"></th>
-                  <th>客户ID</th>
-                  <th>成交时间</th>
-                  <th>最近一次回访时间</th>
-                  <th>签约客户姓名</th>
-                  <th>签约客户性别</th>
-                  <th>签约手机号</th>
-                  <th>成交车辆</th>
-                  <th>成交价</th>
-                  <th>销售类型</th>
-                  <th>销售顾问</th>
-                  <th>车架号</th>
-                  <th>客户来源</th>
-                  <th>客户当前状态</th>
-                  <th>用车人姓名</th>
-                  <th>用车人生日</th>
-                  <th>用车人性别</th>
-                  <th>用车地</th>
-                  <th>交强险到期时间</th>
-                  <th>商业险到期时间</th>
-                  <th>用车人爱好</th>
-                  <th>单据来源</th>
-                  <th>关联状态</th>
-                  <th>最近一次回访人</th>
-                  <th>操作</th>
-                </tr>
-              </thead>
-              <tbody id="visitTableBody"></tbody>
-            </table>
-          </div>
+          <div class="result-layout">
+            <div class="result-side">
+              <div class="detail-card">
+                <div class="detail-head">
+                  <strong>任务信息</strong>
+                  <span class="status-pill running">执行中</span>
+                </div>
+                <dl class="detail-list">
+                  <div><dt>任务名称</dt><dd>6月库存车跟进-A级客户外呼</dd></div>
+                  <div><dt>客户状态</dt><dd>跟进中</dd></div>
+                  <div><dt>圈选方式</dt><dd>客户列表复用圈选</dd></div>
+                  <div><dt>客户数量</dt><dd>286 / 500</dd></div>
+                  <div><dt>拨打时间</dt><dd>2026-06-16 18:00 - 21:00</dd></div>
+                  <div><dt>AI话术</dt><dd>库存车意向唤醒话术V3</dd></div>
+                  <div><dt>外呼号码</dt><dd>华东线路-400-089-2211</dd></div>
+                  <div><dt>规则模板</dt><dd>跟进中客户清洗模板</dd></div>
+                </dl>
+              </div>
 
-          <div class="empty-state" id="emptyState">暂无符合条件的数据</div>
-
-          <div class="pagination">
-            <div class="pagination-left">
-              <button class="btn btn-default btn-mini" type="button">全选</button>
-              <button class="btn btn-default btn-mini" type="button" disabled>批量删除</button>
+              <div class="detail-card">
+                <div class="detail-head">
+                  <strong>执行汇总</strong>
+                </div>
+                <div class="metric-grid">
+                  <div class="metric-box">
+                    <span>已拨打</span>
+                    <strong>208</strong>
+                  </div>
+                  <div class="metric-box">
+                    <span>已接听</span>
+                    <strong>67</strong>
+                  </div>
+                  <div class="metric-box">
+                    <span>接听率</span>
+                    <strong>32.2%</strong>
+                  </div>
+                  <div class="metric-box">
+                    <span>微信已推送</span>
+                    <strong>28</strong>
+                  </div>
+                  <div class="metric-box">
+                    <span>规则命中</span>
+                    <strong>104</strong>
+                  </div>
+                  <div class="metric-box">
+                    <span>自动执行</span>
+                    <strong>72</strong>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="pagination-right">
-              <span id="resultCountTag">共 0 条</span>
-              <select aria-label="每页条数">
-                <option>10条/页</option>
-                <option>20条/页</option>
-                <option>50条/页</option>
-              </select>
-              <button class="page-btn active" type="button">1</button>
-              <button class="page-btn" type="button">2</button>
-              <button class="page-btn" type="button">3</button>
-              <span>...</span>
-              <button class="page-btn" type="button">55</button>
-              <span>前往</span>
-              <input class="page-input" type="text" />
-              <span>页</span>
+
+            <div class="result-main">
+              <div class="sub-toolbar result-toolbar">
+                <strong>呼叫明细</strong>
+                <div class="sub-toolbar-actions">
+                  <select>
+                    <option>全部通话状态</option>
+                    <option>已接听</option>
+                    <option>未接</option>
+                    <option>拒接</option>
+                    <option>占线</option>
+                    <option>关机</option>
+                    <option>无法接通</option>
+                    <option>空号</option>
+                  </select>
+                  <select>
+                    <option>全部意向标签</option>
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                    <option>D</option>
+                    <option>E</option>
+                    <option>N</option>
+                  </select>
+                  <input type="text" placeholder="搜索MMC客户ID/手机号" />
+                  <button class="btn btn-default btn-mini" type="button">查询</button>
+                </div>
+              </div>
+
+              <table class="compact-table">
+                <thead>
+                  <tr>
+                    <th>MMC客户ID</th>
+                    <th>手机号</th>
+                    <th>当前状态</th>
+                    <th>归属人</th>
+                    <th>通话状态</th>
+                    <th>通话时长</th>
+                    <th>已拨打次数</th>
+                    <th>开始时间</th>
+                    <th>结束时间</th>
+                    <th>意向标签</th>
+                    <th>微信推送</th>
+                    <th>录音</th>
+                    <th>录音分析内容</th>
+                    <th>规则结果</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="#">MMC2064982212</a></td>
+                    <td><a href="#">136****9808</a></td>
+                    <td>跟进中</td>
+                    <td>郭旭</td>
+                    <td><span class="status-chip success">已接听</span></td>
+                    <td>146秒</td>
+                    <td>1</td>
+                    <td>2026-06-16 18:05:11</td>
+                    <td>2026-06-16 18:07:37</td>
+                    <td>A</td>
+                    <td>已推送</td>
+                    <td><button class="link-btn" type="button">播放录音</button></td>
+                    <td>客户确认近期看车，有明确到店意向，偏好7座SUV，建议24小时内人工接管。</td>
+                    <td>意向=A；下次跟进时间+24h；已推送微信</td>
+                  </tr>
+                  <tr>
+                    <td><a href="#">MMC2064982247</a></td>
+                    <td><a href="#">138****2201</a></td>
+                    <td>跟进中</td>
+                    <td>韩雪</td>
+                    <td><span class="status-chip warning">拒接</span></td>
+                    <td>0秒</td>
+                    <td>2</td>
+                    <td>2026-06-16 18:08:01</td>
+                    <td>2026-06-16 18:08:05</td>
+                    <td>E</td>
+                    <td>无需推送</td>
+                    <td><button class="link-btn" type="button">播放录音</button></td>
+                    <td>本次未接通，建议后续继续尝试联系。</td>
+                    <td>记录轨迹；下次跟进时间+12h</td>
+                  </tr>
+                  <tr>
+                    <td><a href="#">MMC2064967142</a></td>
+                    <td><a href="#">139****5741</a></td>
+                    <td>跟进中</td>
+                    <td>李清</td>
+                    <td><span class="status-chip neutral">无法接通</span></td>
+                    <td>0秒</td>
+                    <td>1</td>
+                    <td>2026-06-16 18:10:24</td>
+                    <td>2026-06-16 18:10:31</td>
+                    <td>N</td>
+                    <td>无需推送</td>
+                    <td><button class="link-btn" type="button">播放录音</button></td>
+                    <td>号码无法接通，建议核验客户联系方式。</td>
+                    <td>记录轨迹；生成人工校验待办</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="detail-explain">
+                <div class="explain-card">
+                  <strong>单条呼叫数据落库要求</strong>
+                  <p>每次外呼均需独立存储：通话状态、通话时长、已拨打次数、开始/结束时间、意向标签、微信推送状态、通话录音、录音分析内容，并关联至客户与任务。</p>
+                </div>
+                <div class="explain-card">
+                  <strong>客户轨迹沉淀要求</strong>
+                  <p>所有呼叫结果至少写入一条“AI外呼清洗轨迹”；若未命中规则，仅保留轨迹，不改状态、不改归属。任务明细中点击 MMC 客户 ID 可跳转客户详情。</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
       </main>
     </div>
   </div>
-
-  <div class="drawer" id="visitDrawer" aria-hidden="true">
-    <div class="drawer-mask" data-close-drawer="true"></div>
-    <section class="drawer-panel">
-      <header class="drawer-head">
-        <div>
-          <div class="drawer-kicker" id="drawerKicker">人工创建单</div>
-          <h2 id="drawerTitle">新建面访单</h2>
-        </div>
-        <button class="icon-btn close-btn" type="button" data-close-drawer="true" aria-label="关闭">×</button>
-      </header>
-
-      <div class="drawer-body">
-        <section class="drawer-block">
-          <div class="block-head">
-            <h3>单据信息</h3>
-          </div>
-          <div class="form-grid">
-            <label class="field">
-              <span>单据来源</span>
-              <input id="formSource" type="text" value="人工创建" disabled />
-            </label>
-            <label class="field">
-              <span>当前状态</span>
-              <input id="formStatusText" type="text" value="草稿" disabled />
-            </label>
-            <label class="field">
-              <span>回访类型</span>
-              <select id="formVisitType">
-                <option value="展厅面访">展厅面访</option>
-                <option value="交车面访">交车面访</option>
-                <option value="电话回访">电话回访</option>
-                <option value="保险提醒">保险提醒</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>创建门店</span>
-              <select id="formStore">
-                <option value="卡泰驰（徐州）金欧店">卡泰驰（徐州）金欧店</option>
-                <option value="美驰直营旗舰店">美驰直营旗舰店</option>
-                <option value="卡泰驰（南京）雨花店">卡泰驰（南京）雨花店</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>到店/回访时间</span>
-              <input id="formVisitAt" type="datetime-local" />
-            </label>
-            <label class="field">
-              <span>创建人</span>
-              <input id="formCreator" type="text" value="郭旭（23024898）" disabled />
-            </label>
-          </div>
-        </section>
-
-        <section class="drawer-block">
-          <div class="block-head">
-            <h3>面访/回访填写信息</h3>
-          </div>
-          <div class="form-grid">
-            <label class="field">
-              <span>实际用车人姓名</span>
-              <input id="formOwnerName" type="text" placeholder="请输入实际用车人姓名" />
-            </label>
-            <label class="field">
-              <span>用车人联系方式</span>
-              <input id="formOwnerPhone" type="text" placeholder="请输入手机号" />
-            </label>
-            <label class="field">
-              <span>用车人性别</span>
-              <select id="formGender">
-                <option value="">请选择</option>
-                <option value="男">男</option>
-                <option value="女">女</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>用车人生日</span>
-              <input id="formBirthday" type="date" />
-            </label>
-            <label class="field">
-              <span>用车地</span>
-              <input id="formCity" type="text" placeholder="例如：江苏省 徐州市" />
-            </label>
-            <label class="field">
-              <span>用车人爱好</span>
-              <input id="formHobby" type="text" placeholder="例如：露营" />
-            </label>
-            <label class="field">
-              <span>交强险到期时间</span>
-              <input id="formTrafficInsurance" type="date" />
-            </label>
-            <label class="field">
-              <span>商业险到期时间</span>
-              <input id="formBusinessInsurance" type="date" />
-            </label>
-            <label class="field full">
-              <span>回访内容</span>
-              <textarea id="formFeedback" rows="4" placeholder="请输入本次回访记录"></textarea>
-            </label>
-            <label class="field full">
-              <span>备注</span>
-              <textarea id="formRemark" rows="3" placeholder="请输入备注"></textarea>
-            </label>
-          </div>
-        </section>
-
-        <section class="drawer-block" id="associationBlock">
-          <div class="block-head">
-            <h3>关联销单信息</h3>
-          </div>
-          <div class="association-card" id="associationCard">
-            <div class="association-empty">当前单据暂未关联销单</div>
-          </div>
-        </section>
-      </div>
-
-      <footer class="drawer-foot">
-        <button class="btn btn-default" type="button" data-close-drawer="true">取消</button>
-        <button class="btn btn-default" type="button" id="saveDraftBtn">保存草稿</button>
-        <button class="btn btn-primary" type="button" id="submitVisitBtn">保存并提交</button>
-      </footer>
-    </section>
-  </div>
-
-  <div class="modal" id="associateModal" aria-hidden="true">
-    <div class="modal-card modal-wide">
-      <header class="modal-head">
-        <div>
-          <h2>手工关联销单</h2>
-          <p>仅展示已满足尾款收齐且已生成成交客户数据的销单</p>
-        </div>
-        <button class="icon-btn close-btn" type="button" data-close-associate="true" aria-label="关闭">×</button>
-      </header>
-      <div class="modal-body">
-        <div class="associate-summary" id="associateSummary"></div>
-        <div class="associate-filter-bar">
-          <label class="field">
-            <span>车架号搜索</span>
-            <input id="candidateVinSearch" type="text" placeholder="支持后4位/后6位/全部车架号搜索" />
-          </label>
-          <label class="field">
-            <span>车辆名称</span>
-            <input id="candidateVehicleSearch" type="text" placeholder="请输入车辆名称模糊搜索" />
-          </label>
-          <div class="filter-actions">
-            <button class="btn btn-default" type="button" id="candidateResetBtn">重置</button>
-            <button class="btn btn-primary" type="button" id="candidateQueryBtn">查询</button>
-          </div>
-        </div>
-        <div class="candidate-table">
-          <table>
-            <thead>
-              <tr>
-                <th></th>
-                <th>销单号</th>
-                <th>签约客户</th>
-                <th>成交车辆</th>
-                <th>车架号</th>
-                <th>尾款收齐时间</th>
-                <th>成交客户数据</th>
-                <th>系统单情况</th>
-              </tr>
-            </thead>
-            <tbody id="candidateTableBody"></tbody>
-          </table>
-        </div>
-        <div class="merge-warning hidden" id="mergeWarning">
-          <div class="warning-tag">覆盖提醒</div>
-          <div id="mergeWarningText"></div>
-        </div>
-      </div>
-      <footer class="modal-foot">
-        <button class="btn btn-default" type="button" data-close-associate="true">取消</button>
-        <button class="btn btn-primary" type="button" id="confirmAssociateBtn">确认关联</button>
-      </footer>
-    </div>
-  </div>
-
-  <div class="modal" id="deleteModal" aria-hidden="true">
-    <div class="modal-card modal-narrow">
-      <header class="modal-head">
-        <div>
-          <h2>删除人工单</h2>
-          <p>系统生成单不可删除，仅人工单支持删除。</p>
-        </div>
-      </header>
-      <div class="modal-body">
-        <p id="deleteDesc">确认删除当前人工单吗？删除后不可恢复。</p>
-      </div>
-      <footer class="modal-foot">
-        <button class="btn btn-default" type="button" data-close-delete="true">取消</button>
-        <button class="btn btn-danger" type="button" id="confirmDeleteBtn">确认删除</button>
-      </footer>
-    </div>
-  </div>
-
-  <div class="toast" id="toast"></div>
 
   <script src="script.js"></script>
 </body>
